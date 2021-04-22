@@ -1,0 +1,169 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Uploading</title>
+    <style>
+        *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+:root {
+  --select-border: #777;
+  --select-focus: rgb(6, 189, 36);
+  --select-arrow: var(--select-border);
+}
+select {
+    outline: none;
+  appearance: none;
+  
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+}
+            .select {
+  width: 100%;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid var(--select-border);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+  position: relative;
+  align-items: center;
+  text-align: center;
+  right: auto;
+  left: 50%;
+  display: grid;
+  transform: translate(-50%,0);
+  grid-template-areas: "select";
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}
+            
+            .select::after {
+  content: "";
+  width: 0.8em;
+  height: 0.5em;
+  border-top: 6px solid rgb(13, 168, 52);
+  background-color: var(--select-arrow);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+}
+                     
+           
+.select:after {
+ 
+  justify-self: end;
+}
+select,
+.select:after {
+  grid-area: select;
+  justify-self: end;
+}
+select:focus + .focus {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border: 2px solid var(--select-focus);
+  border-radius: inherit;
+}
+
+#ops{
+  border: 2px solid black ;
+  padding: 25px;
+  align-items: center;
+}
+.inputfile {
+	width: 20px;
+	height: 20px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+  position: relative;
+    display: inline-block;
+    margin: 0 0 25px 0px;
+    padding: 15px 10px;
+    width: 180px;
+    background: #18e787;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    font-weight: bold;
+    line-height: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+   
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: rgb(0, 255, 21);
+}
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}
+    </style>
+</head>
+<body>
+   <p style="color: rgb(88, 80, 80);font-size: 20px;">Upload your document</p>
+   <div style="text-align: center;">
+       <p style="font-size: 20px;">Choose the type of document</p>
+      
+       <div  class="select">
+  <select  id="standard-select">
+    <option value="Aadhar">Aadhar</option>
+    <option value="Pan Card">Pan Card</option>
+    <option value="Passport">Passport</option>
+    <option value="Driving Licence">Driving Licence</option>
+  
+  </select>
+  <span class="focus"></span>
+</div>
+</div><br><br><br><br>
+<div id="dropContainer" style="border:1px dashed black;width:50%; height:50%;text-align: center;align-items: center;margin: auto;">
+  <p style="font-size: 25px;">Drag and drop your file here </p>
+  <p style="font-size: 25px;">or</p><br><br>
+  <input type="file" name="file" id="file" class="inputfile" />
+  <label for="file">Upload</label>
+</div>
+<div id="ops">
+  <h6>Output</h6>
+  <p><%= Text%></p>
+</div>
+ <script>
+   dropContainer.ondragover = dropContainer.ondragenter = function(evt) {
+  evt.preventDefault();
+};
+
+dropContainer.ondrop = function(evt) {
+  // pretty simple -- but not for IE :(
+  fileInput.files = evt.dataTransfer.files;
+
+  // If you want to use some of the dropped files
+  const dT = new DataTransfer();
+  dT.items.add(evt.dataTransfer.files[0]);
+  dT.items.add(evt.dataTransfer.files[3]);
+  fileInput.files = dT.files;
+
+  evt.preventDefault();
+};
+ </script>      
+  
+</body>
+</html>
